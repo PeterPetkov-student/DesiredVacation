@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Desired Vacations App</string>
+    <string name="add_new_hotel">Add New Hotel</string>
+    <string name="currency_symbol">$</string>
+    <string name="vacation_name_req">Vacation Name <font color='#FF0000'>*</font></string>
+    <string name="vacation_hotel_name_req">Hotel Name <font color='#FF0000'>*</font></string>
+    <string name="vacation_location_req">Location <font color='#FF0000'>*</font></string>
+    <string name="vacation_money_necessary_req">Money Necessary <font color='#FF0000'>*</font></string>
+    <string name="vacation_description_req">Description <font color='#FF0000'>*</font></string>
+    <string name="save_action">Save</string>
+    <string name="add_image">Add Image</string>
+    <string name="edit_vacation">Edit Vacation</string>
+    <string name="hotel_vacation_image">Hotel Vacation Image</string>
+    <string name="add_vacation_name">Add Vacation Name</string>
+    <string name="edit_fragment_title">Edit Fragment Name</string>
+    <string name="delete_question">Delete Question</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="delete">Delete</string>
+    <string name="camera">Camera</string>
+    <string name="date">Date (e.g., DD/MM/YYYY)</string>
+    <string name="message">Notification Message</string>
+    <string name="time">Time (e.g., HH:MM)</string>
+    <string name="set_notification">Set Notification</string>
+</resources>
