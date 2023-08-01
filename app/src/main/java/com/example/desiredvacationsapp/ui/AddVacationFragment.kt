@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.icu.text.SimpleDateFormat
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -18,15 +19,18 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.desiredvacationsapp.ARG_VACATION_ID
+import com.example.desiredvacationsapp.BuildConfig
 import com.example.desiredvacationsapp.R
+import com.example.desiredvacationsapp.Utils
 import com.example.desiredvacationsapp.appDatabase.VacationDatabase
 import com.example.desiredvacationsapp.databinding.FragmentAddVacationBinding
-import com.example.desiredvacationsapp.interfaces.NavigationListener
 import com.example.desiredvacationsapp.viewmodel.VacationViewModel
 import com.example.desiredvacationsapp.viewmodel.VacationViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -42,6 +46,8 @@ class AddVacationFragment : Fragment() {
     private val PERMISSION_REQUEST_CAMERA = 1002
     private val PICK_IMAGE_REQUEST = 2001
     private val TAKE_PHOTO_REQUEST = 2002
+
+    private var photoFile: File? = null
 
     // Selected image path.
     private var selectedImage: String? = null
@@ -79,8 +85,6 @@ class AddVacationFragment : Fragment() {
         view.findViewById<FloatingActionButton>(R.id.add_image_button).setOnClickListener {
             handleAddImageButtonClick()
         }
-
-        setupTakePhotoButton()
     }
 
     // Handle permission request results.
@@ -103,7 +107,6 @@ class AddVacationFragment : Fragment() {
     }
 
     // Handle activity result.
-    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -114,14 +117,18 @@ class AddVacationFragment : Fragment() {
                         val inputStream = requireActivity().contentResolver.openInputStream(uri)
                         val picturePath = saveImageToInternalStorage(inputStream)
                         selectedImage = picturePath
+                        updateImageViewWithSelectedImage() // Update ImageView here
                     }
                 }
                 TAKE_PHOTO_REQUEST -> {
-                    // Handle the result from taking a photo here, save it to the internal storage and assign the path to selectedImage.
+                    // Handle the result from taking a photo here, save it to the internal storage and assign the path to selectedImage
+                    selectedImage = photoFile?.path
+                    updateImageViewWithSelectedImage() // Update ImageView here
                 }
             }
         }
     }
+
 
     // Clean up when the view is destroyed.
     override fun onDestroyView() {
@@ -146,33 +153,49 @@ class AddVacationFragment : Fragment() {
 
             if (vacationId > 0) {
                 viewModel.updateVacation(vacationId, vacationName, hotelName, location, moneyNecessary, description)
-                (activity as? NavigationListener)?.navigateToVacationDetailFragment(vacationId)
+                val vacationDetailFragment = VacationDetailFragment()
+                val bundle = Bundle()
+                bundle.putInt(ARG_VACATION_ID, vacationId)
+                vacationDetailFragment.arguments = bundle
+                Utils.commitFragment(parentFragmentManager, R.id.fragment_container, vacationDetailFragment, true)
             } else {
                 viewModel.addNewVacation(vacationName, hotelName, location, moneyNecessary, description, null)
-                (activity as? NavigationListener)?.navigateToVacationFragmentList()
+                val vacationFragmentList = VacationFragmentList()
+                Utils.commitFragment(parentFragmentManager, R.id.fragment_container, vacationFragmentList, true)
             }
         }
     }
+
 
     // Check permissions and open gallery to choose an image.
     private fun handleAddImageButtonClick() {
-        if (ContextCompat.checkSelfPermission(requireContext(), READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(READ_EXTERNAL_STORAGE), PERMISSION_REQUEST_READ_EXTERNAL_STORAGE)
-        } else {
-            openGallery()
-        }
-    }
+        val options = arrayOf<CharSequence>("Take Photo", "Choose from Gallery", "Cancel")
 
-    // Check permissions and open camera to take a photo.
-    private fun setupTakePhotoButton() {
-        val takePhotoButton = view?.findViewById<FloatingActionButton>(R.id.camera_button)
-        takePhotoButton?.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(requireContext(), CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(CAMERA), PERMISSION_REQUEST_CAMERA)
-            } else {
-                takePhoto()
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Add Photo!")
+
+        builder.setItems(options) { dialog, item ->
+            when {
+                options[item] == "Take Photo" -> {
+                    if (ContextCompat.checkSelfPermission(requireContext(), CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(requireActivity(), arrayOf(CAMERA), PERMISSION_REQUEST_CAMERA)
+                    } else {
+                        takePhoto()
+                    }
+                }
+                options[item] == "Choose from Gallery" -> {
+                    if (ContextCompat.checkSelfPermission(requireContext(), READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(requireActivity(), arrayOf(READ_EXTERNAL_STORAGE), PERMISSION_REQUEST_READ_EXTERNAL_STORAGE)
+                    } else {
+                        openGallery()
+                    }
+                }
+                options[item] == "Cancel" -> {
+                    dialog.dismiss()
+                }
             }
         }
+        builder.show()
     }
 
     // Open gallery to choose an image.
@@ -187,16 +210,32 @@ class AddVacationFragment : Fragment() {
     private fun takePhoto() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (cameraIntent.resolveActivity(requireContext().packageManager) != null) {
-            val photoFile: File? = try {
+            photoFile = try {
                 createImageFile()
             } catch (ex: IOException) {
                 // Handle the error
                 null
             }
 
-            photoFile?.let {
+            photoFile?.let { file ->
+                val photoUri = FileProvider.getUriForFile(
+                    requireContext(),
+                    BuildConfig.APPLICATION_ID + ".fileprovider",
+                    file
+                )
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
                 startActivityForResult(cameraIntent, TAKE_PHOTO_REQUEST)
             }
+        }
+    }
+
+
+    private fun updateImageViewWithSelectedImage() {
+        if (selectedImage != null) {
+            val bitmap = BitmapFactory.decodeFile(selectedImage)
+            binding.hotelImage2.setImageBitmap(bitmap)
+        } else {
+            Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
         }
     }
 

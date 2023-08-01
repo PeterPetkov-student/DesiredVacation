@@ -1,6 +1,7 @@
-package com.example.desiredvacationsapp.adapters
+package com.example.desiredvacationsapp.ui.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -38,9 +39,13 @@ class VacationAdapter(private val onItemClicked: (Vacation) -> Unit) :
             binding.name.text = item.name
             binding.vacationLocation.text = item.location
 
-            Glide.with(binding.root)
-                .load(item.imageName?.let { File(it) }) // loading from a local file
-                .into(binding.imageName)  // Assuming there's an ImageView with id vacationImage in your layout
+            if (item.imageName.isNullOrEmpty()) {
+                binding.imageName.visibility = View.GONE  // hide ImageView when there's no image
+            } else {
+                Glide.with(binding.root)
+                    .load(File(item.imageName)) // loading from a local file
+                    .into(binding.imageName)  // Assuming there's an ImageView with id vacationImage in your layout
+            }
 
         }
     }

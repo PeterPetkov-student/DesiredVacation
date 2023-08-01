@@ -1,6 +1,5 @@
 package com.example.desiredvacationsapp.viewmodel
 
-import android.net.Uri
 import androidx.lifecycle.*
 import com.example.desiredvacationsapp.daoObject.VacationDao
 import com.example.desiredvacationsapp.models.Vacation
@@ -12,7 +11,6 @@ class VacationViewModel(private val vacationDao: VacationDao) : ViewModel() {
     val allVacations: LiveData<List<Vacation>> = vacationDao.allVacations().asLiveData()
 
     private var imageName: String? = null
-
 
     fun setSelectedImageName(name: String?) {
         imageName = name
@@ -139,6 +137,7 @@ class VacationViewModel(private val vacationDao: VacationDao) : ViewModel() {
         )
     }
 }
+
 
 /**
  * Factory class to instantiate the [ViewModel] instance.

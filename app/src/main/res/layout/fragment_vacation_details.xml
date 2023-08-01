@@ -10,6 +10,20 @@
     android:padding="16dp"
     tools:context="com.example.desiredvacationsapp.ui.VacationDetailFragment">
 
+    <ImageButton
+        android:id="@+id/notification_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="40dp"
+        android:contentDescription="@string/set_notification"
+        android:src="@android:drawable/ic_lock_idle_alarm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edit_vacation"
+        app:layout_constraintTop_toBottomOf="@+id/delete_vacation" />
+
     <ImageView
         android:id="@+id/hotel_image"
         android:layout_width="0dp"

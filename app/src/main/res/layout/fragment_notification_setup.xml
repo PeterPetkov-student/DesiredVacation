@@ -17,28 +17,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/dateInput"
+    <TextView
+        android:id="@+id/dateButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/date"
-        android:minHeight="48dp"
-        android:layout_marginTop="@dimen/margin"
-        android:textColorHint="#757575"
+        android:text="@string/select_date"
+        android:gravity="center"
+        android:background="#E0E0E0"
+        android:padding="10dp"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notificationMessageInput" />
 
-    <EditText
-        android:id="@+id/timeInput"
+    <TextView
+        android:id="@+id/timeButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/time"
-        android:minHeight="48dp"
-        android:layout_marginTop="@dimen/margin"
+        android:text="@string/select_time"
+        android:gravity="center"
+        android:background="#E0E0E0"
+        android:padding="10dp"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateInput" />
+        app:layout_constraintTop_toBottomOf="@+id/dateButton" />
 
     <Button
         android:id="@+id/setNotificationButton"
@@ -47,6 +50,6 @@
         android:layout_marginTop="@dimen/margin"
         android:text="@string/set_notification"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeInput" />
+        app:layout_constraintTop_toBottomOf="@+id/timeButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

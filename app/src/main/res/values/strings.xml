@@ -22,4 +22,7 @@
     <string name="message">Notification Message</string>
     <string name="time">Time (e.g., HH:MM)</string>
     <string name="set_notification">Set Notification</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_time">Select Time</string>
+    <string name="scheduled_notification">Scheduled Notification</string>
 </resources>

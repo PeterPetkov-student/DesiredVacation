@@ -12,26 +12,27 @@
         android:layout_margin="@dimen/margin">
 
 
+        <ImageView
+            android:id="@+id/hotel_image2"
+            android:layout_width="317dp"
+            android:layout_height="92dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/hotel_vacation_image"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vacation_description_label" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_image_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
             android:contentDescription="@string/add_image"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vacation_description_label"
+            app:layout_constraintTop_toBottomOf="@+id/hotel_image2"
             app:srcCompat="@android:drawable/ic_menu_add"
-            tools:ignore="ImageContrastCheck" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/camera_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:contentDescription="@string/camera"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vacation_description_label"
-            app:srcCompat="@android:drawable/ic_menu_camera"
             tools:ignore="ImageContrastCheck" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -115,8 +116,8 @@
             android:id="@+id/vacation_description_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/vacation_description_req"
             android:layout_marginTop="@dimen/margin"
+            android:hint="@string/vacation_description_req"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/money_necessary_label">
@@ -135,11 +136,12 @@
             android:id="@+id/save_action"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/save_action"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/camera_button" />
+            app:layout_constraintTop_toBottomOf="@+id/add_image_button" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

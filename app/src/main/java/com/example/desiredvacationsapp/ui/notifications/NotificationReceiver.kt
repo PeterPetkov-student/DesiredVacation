@@ -1,4 +1,4 @@
-package com.example.desiredvacationsapp.notifications
+package com.example.desiredvacationsapp.ui.notifications
 
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
@@ -7,7 +7,7 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 
-class AlarmReceiver : BroadcastReceiver() {
+class NotificationReceiver : BroadcastReceiver() {
 
     // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
     // Here it's being used to receive the broadcast from an alarm triggering.
@@ -19,9 +19,11 @@ class AlarmReceiver : BroadcastReceiver() {
 
         // Build the notification with its parameters:
         // The icon, the title, the text, and the priority.
-        val notificationBuilder = NotificationCompat.Builder(context, NotificationSetupFragment.CHANNEL_ID)
+        val notificationBuilder = NotificationCompat.Builder(context,
+            NotificationSetupFragment.CHANNEL_ID
+        )
             .setSmallIcon(com.google.android.material.R.drawable.ic_clock_black_24dp) // set the icon for the notification
-            .setContentTitle("Scheduled Notification") // set the title of the notification
+            .setContentTitle(intent.getStringExtra("title")) // set the title of the notification
             .setContentText(intent.getStringExtra("message")) // set the text of the notification with the extra "message" in the intent
             .setPriority(NotificationCompat.PRIORITY_DEFAULT) // set the priority of the notification
 

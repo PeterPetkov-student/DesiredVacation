@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.desiredvacationsapp.*
-import com.example.desiredvacationsapp.adapters.VacationAdapter
+import com.example.desiredvacationsapp.ui.adapters.VacationAdapter
 import com.example.desiredvacationsapp.appDatabase.VacationDatabase
 import com.example.desiredvacationsapp.databinding.FragmentVacationListBinding
-import com.example.desiredvacationsapp.notifications.NotificationSetupFragment
+import com.example.desiredvacationsapp.ui.notifications.NotificationSetupFragment
 import com.example.desiredvacationsapp.viewmodel.VacationViewModel
 import com.example.desiredvacationsapp.viewmodel.VacationViewModelFactory
 
@@ -40,8 +40,6 @@ class VacationFragmentList : Fragment() {
         setupRecyclerView()
         // Observe the vacations to update the recycler view.
         observeAllVacations()
-        // Set up the notification button.
-        setupNotificationButton(view)
         // Set up the floating action button.
         setupFloatingActionButton()
     }
@@ -79,26 +77,6 @@ class VacationFragmentList : Fragment() {
                 (binding.recyclerViewVacations.adapter as VacationAdapter).submitList(it)
             }
         }
-    }
-
-    //Set up the notification button, including setting the click listener.
-    private fun setupNotificationButton(view: View) {
-        val clockIcon = view.findViewById<ImageButton>(R.id.notification_button)
-
-        // Set a click listener for the clock icon
-        clockIcon.setOnClickListener {
-            // When the clock icon is clicked, navigate to the NotificationSetupFragment
-            navigateToNotificationSetupFragment()
-        }
-    }
-
-    //Navigating to the NotificationSetupFragment when the notification button is clicked.
-    private fun navigateToNotificationSetupFragment() {
-        val notificationSetupFragment = NotificationSetupFragment()
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, notificationSetupFragment)
-            .addToBackStack(null)
-            .commit()
     }
 
     //Set up the floating action button, including setting the click listener.

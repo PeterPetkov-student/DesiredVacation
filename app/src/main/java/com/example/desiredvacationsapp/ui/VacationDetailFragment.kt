@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -12,10 +13,10 @@ import com.example.desiredvacationsapp.appDatabase.VacationDatabase
 import com.example.desiredvacationsapp.databinding.FragmentVacationDetailsBinding
 import com.example.desiredvacationsapp.interfaces.NavigationListener
 import com.example.desiredvacationsapp.models.Vacation
+import com.example.desiredvacationsapp.ui.notifications.NotificationSetupFragment
 import com.example.desiredvacationsapp.viewmodel.VacationViewModel
 import com.example.desiredvacationsapp.viewmodel.VacationViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.io.File
 
 class VacationDetailFragment : Fragment() {
 
@@ -36,6 +37,8 @@ class VacationDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViewModel()
         handleArgumentsAndRetrieveVacation()
+        // Set up the notification button.
+        setupNotificationButton(view)
     }
 
     // Set up the view model for this fragment.
@@ -49,8 +52,10 @@ class VacationDetailFragment : Fragment() {
         val id = arguments?.getInt(ARG_VACATION_ID) ?: -1
         if (id > 0) {
             viewModel.retrieveVacation(id).observe(this.viewLifecycleOwner) { selectedItem ->
-                vacation = selectedItem
-                bind(vacation)
+                selectedItem?.let {
+                    vacation = it
+                    bind(vacation)
+                }
             }
         }
     }
@@ -69,10 +74,13 @@ class VacationDetailFragment : Fragment() {
             deleteVacation.setOnClickListener { showConfirmationDialog() }
             editVacation.setOnClickListener { navigateToEditVacationFragment() }
 
-            // Load the image into the ImageView using Glide.
-            Glide.with(this@VacationDetailFragment)
-                .load(vacation.imageName) // loading from a local file
-                .into(hotelImage)
+            if (vacation.imageName.isNullOrEmpty()) {
+                hotelImage.visibility = View.GONE  // hide ImageView when there's no image
+            } else {
+                Glide.with(this@VacationDetailFragment)
+                    .load(vacation.imageName) // loading from a local file
+                    .into(hotelImage)
+            }
         }
     }
 
@@ -109,5 +117,29 @@ class VacationDetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    //Set up the notification button, including setting the click listener.
+    private fun setupNotificationButton(view: View) {
+        val clockIcon = view.findViewById<ImageButton>(R.id.notification_button)
+
+        // Set a click listener for the clock icon
+        clockIcon.setOnClickListener {
+            // When the clock icon is clicked, navigate to the NotificationSetupFragment
+            navigateToNotificationSetupFragment()
+        }
+    }
+
+    //Navigating to the NotificationSetupFragment when the notification button is clicked.
+    private fun navigateToNotificationSetupFragment() {
+        val notificationSetupFragment = NotificationSetupFragment()
+
+        // Create a bundle and add the vacation id to it
+        val bundle = Bundle()
+        bundle.putInt("vacation_id", vacation.id)
+        bundle.putString("vacation_name", vacation.name)
+        notificationSetupFragment.arguments = bundle
+
+
+        Utils.commitFragment(parentFragmentManager, R.id.fragment_container, notificationSetupFragment, true)
     }
 }
