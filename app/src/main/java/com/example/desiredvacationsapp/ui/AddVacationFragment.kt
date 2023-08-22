@@ -9,7 +9,6 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.icu.text.SimpleDateFormat
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -33,6 +32,7 @@ import com.example.desiredvacationsapp.appDatabase.VacationDatabase
 import com.example.desiredvacationsapp.databinding.FragmentAddVacationBinding
 import com.example.desiredvacationsapp.viewmodel.VacationViewModel
 import com.example.desiredvacationsapp.viewmodel.VacationViewModelFactory
+import com.example.desiredvacationsapp.widgets.CustomEditText
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.io.*
 import java.util.*
@@ -141,15 +141,24 @@ class AddVacationFragment : Fragment() {
 
     // Handle the saving of a new or updated vacation.
     private fun handleSaveAction() {
-        if (isEntryValid()) {
+        // Validate individual CustomEditText fields.
+        val isVacationNameValid = validateField(binding.vacationName)
+        val isHotelNameValid = validateField(binding.hotelName)
+        val isLocationValid = validateField(binding.vacationLocation)
+        val isMoneyNecessaryValid = validateField(binding.moneyNecessary)
+        val isDescriptionValid = validateField(binding.vacationDescription)
+
+        // If all fields are valid, then proceed with saving.
+        if (isVacationNameValid && isHotelNameValid && isLocationValid && isMoneyNecessaryValid && isDescriptionValid) {
+
             val vacationId = arguments?.getInt(ARG_VACATION_ID) ?: -1
             viewModel.setSelectedImageName(selectedImage)
 
-            val vacationName = binding.vacationName.text.toString()
-            val hotelName = binding.hotelName.text.toString()
-            val location = binding.vacationLocation.text.toString()
-            val moneyNecessary = binding.moneyNecessary.text.toString()
-            val description = binding.vacationDescription.text.toString()
+            val vacationName = binding.vacationName.toString()
+            val hotelName = binding.hotelName.toString()
+            val location = binding.vacationLocation.toString()
+            val moneyNecessary = binding.moneyNecessary.toString()
+            val description = binding.vacationDescription.toString()
 
             if (vacationId > 0) {
                 viewModel.updateVacation(vacationId, vacationName, hotelName, location, moneyNecessary, description)
@@ -164,6 +173,15 @@ class AddVacationFragment : Fragment() {
                 Utils.commitFragment(parentFragmentManager, R.id.fragment_container, vacationFragmentList, true)
             }
         }
+    }
+
+    private fun validateField(customEditText: CustomEditText): Boolean {
+        val text = customEditText.text.toString()
+        val isValid = text.isNotBlank()
+        if (!isValid) {
+            customEditText.markAsError()
+        }
+        return isValid
     }
 
 
@@ -259,14 +277,4 @@ class AddVacationFragment : Fragment() {
         return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir)
     }
 
-    // Validate the entry for vacation.
-    private fun isEntryValid(): Boolean {
-        return viewModel.isEntryValid(
-            binding.vacationName.text.toString(),
-            binding.hotelName.text.toString(),
-            binding.vacationLocation.text.toString(),
-            binding.moneyNecessary.text.toString(),
-            binding.vacationDescription.text.toString()
-        )
-    }
 }

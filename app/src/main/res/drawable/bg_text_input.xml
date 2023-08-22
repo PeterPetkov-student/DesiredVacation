@@ -1,0 +1,26 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Error state (when length is more than 20) -->
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <stroke android:width="2dp" android:color="@color/red_700" />
+            <corners android:radius="8dp"/>
+        </shape>
+    </item>
+    <!-- When EditText is focused -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <stroke android:width="2dp" android:color="@color/purple_700" />
+            <corners android:radius="8dp"/>
+        </shape>
+    </item>
+    <!-- Default state -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/lightGreyBackground" />
+            <stroke android:width="2dp" android:color="@color/defaultBorderColor" />
+            <corners android:radius="8dp"/>
+        </shape>
+    </item>
+</selector>

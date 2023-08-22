@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomEditText">
+        <attr name="customHint" format="string"/>
+        <attr name="customHintTextSize" format="dimension"/>
+        <attr name="state_error" format="boolean" />
+    </declare-styleable>
+
+</resources>

@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin">
 
-
         <ImageView
             android:id="@+id/hotel_image2"
             android:layout_width="317dp"
@@ -21,7 +20,17 @@
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vacation_description_label" />
+            app:layout_constraintTop_toBottomOf="@+id/vacation_description" />
+
+        <View
+            android:id="@+id/background_border"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/black_border"
+            app:layout_constraintEnd_toEndOf="@+id/vacation_name"
+            app:layout_constraintStart_toStartOf="@+id/vacation_name"
+            app:layout_constraintTop_toTopOf="@+id/vacation_name"
+            app:layout_constraintBottom_toBottomOf="@+id/vacation_description" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_image_button"
@@ -35,102 +44,59 @@
             app:srcCompat="@android:drawable/ic_menu_add"
             tools:ignore="ImageContrastCheck" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/vacation_name_label"
-            android:layout_width="0dp"
+        <!-- Vacation Name Field -->
+        <com.example.desiredvacationsapp.widgets.CustomEditText
+            android:id="@+id/vacation_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/vacation_name_req"
-            android:layout_marginTop="@dimen/margin"
+            app:customHint="@string/vacation_name_req"
+            android:contentDescription="@string/add_vacation_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/vacation_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textAutoComplete|textCapWords"
-                android:singleLine="true"
-                tools:ignore="TextContrastCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/hotel_name_label"
-            android:layout_width="0dp"
+        <!-- Hotel Name Field -->
+        <com.example.desiredvacationsapp.widgets.CustomEditText
+            android:id="@+id/hotel_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/vacation_hotel_name_req"
-            android:layout_marginTop="@dimen/margin"
+            app:customHint="@string/vacation_hotel_name_req"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vacation_name_label">
+            app:layout_constraintTop_toBottomOf="@+id/vacation_name" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/hotel_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textAutoComplete|textCapWords"
-                android:singleLine="true"
-                tools:ignore="TextContrastCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/vacation_location_label"
-            android:layout_width="0dp"
+        <!-- Vacation Location Field -->
+        <com.example.desiredvacationsapp.widgets.CustomEditText
+            android:id="@+id/vacation_location"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/vacation_location_req"
-            android:layout_marginTop="@dimen/margin"
+            app:customHint="@string/vacation_location_req"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hotel_name_label">
+            app:layout_constraintTop_toBottomOf="@+id/hotel_name" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/vacation_location"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textAutoComplete|textCapWords"
-                android:singleLine="true"
-                tools:ignore="TextContrastCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/money_necessary_label"
-            android:layout_width="0dp"
+        <!-- Money Necessary Field -->
+        <com.example.desiredvacationsapp.widgets.CustomEditText
+            android:id="@+id/money_necessary"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/vacation_money_necessary_req"
-            android:layout_marginTop="@dimen/margin"
+            android:contentDescription="@string/vacation_money_necessary_req"
+            app:customHint="@string/vacation_money_necessary_req"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vacation_location_label"
-            app:prefixText="@string/currency_symbol">
+            app:layout_constraintTop_toBottomOf="@+id/vacation_location"
+            tools:ignore="ContentDescription" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/money_necessary"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="numberDecimal"
-                android:singleLine="true"
-                tools:ignore="TextContrastCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/vacation_description_label"
-            android:layout_width="0dp"
+        <!-- Vacation Description Field -->
+        <com.example.desiredvacationsapp.widgets.CustomEditText
+            android:id="@+id/vacation_description"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin"
-            android:hint="@string/vacation_description_req"
+            app:customHint="@string/vacation_description_req"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/money_necessary_label">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/vacation_description"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin"
-                android:inputType="textAutoComplete|textCapWords"
-                android:singleLine="true"
-                tools:ignore="TextContrastCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@+id/money_necessary" />
 
         <Button
             android:id="@+id/save_action"
@@ -142,7 +108,5 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/add_image_button" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

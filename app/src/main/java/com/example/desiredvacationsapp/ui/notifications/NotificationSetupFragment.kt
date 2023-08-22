@@ -112,6 +112,7 @@ class NotificationSetupFragment : Fragment() {
     private fun scheduleNotification(notificationId: Int, title: String, message: String, calendar: Calendar) {
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(requireContext(), NotificationReceiver::class.java)
+        intent.putExtra("notification_id", notificationId)
         intent.putExtra("title", title)
         intent.putExtra("message", message)
         val pendingIntent = PendingIntent.getBroadcast(

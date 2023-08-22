@@ -2,4 +2,6 @@
 <resources>
     <dimen name="margin">16dp</dimen>
     <dimen name="margin_between_elements">8dp</dimen>
+    <dimen name="default_hint_size">20sp</dimen>
+    <dimen name="focused_text_size">15sp</dimen>
 </resources>

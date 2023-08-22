@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="10dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="10dp">
+
+    <EditText
+        android:id="@+id/customEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@null"
+        android:clickable="true"
+        android:focusable="true"
+        android:textSize="20sp"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:drawableEnd="@drawable/spacer"
+        android:paddingTop="21dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="26dp"
+        android:paddingBottom="21dp" />
+
+    <TextView
+        android:id="@+id/floatingLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:paddingTop="2dp"
+        android:layout_alignTop="@id/customEditText"
+        android:textSize="15sp"
+        android:textColor="@color/label_color_selector"
+        android:visibility="invisible"
+        android:layout_marginBottom="4dp"/>
+
+    <ImageView
+        android:id="@+id/clearButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/customEditText"
+        android:layout_alignTop="@+id/customEditText"
+        android:layout_alignBottom="@+id/customEditText"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_clear"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/actionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/customEditText"
+        android:layout_alignTop="@+id/customEditText"
+        android:layout_alignBottom="@+id/customEditText"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_error"
+        android:visibility="invisible"/>
+
+
+</RelativeLayout>

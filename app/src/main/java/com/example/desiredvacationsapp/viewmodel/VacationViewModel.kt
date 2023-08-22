@@ -27,6 +27,17 @@ class VacationViewModel(private val vacationDao: VacationDao) : ViewModel() {
         val updatedVacation = getUpdatedVacationEntry(id, name, hotelName, location, necessaryMoneyAmount, description,imageName)
         updateVacation(updatedVacation)
     }
+    fun getInvalidFields(name: String, hotelName: String, location: String, necessaryMoneyAmount: String, description: String): List<String> {
+        val invalidFields = mutableListOf<String>()
+
+        if (name.isBlank()) invalidFields.add("name")
+        if (hotelName.isBlank()) invalidFields.add("hotelName")
+        if (location.isBlank()) invalidFields.add("location")
+        if (necessaryMoneyAmount.isBlank()) invalidFields.add("necessaryMoneyAmount")
+        if (description.isBlank()) invalidFields.add("description")
+
+        return invalidFields
+    }
 
 
     /**
@@ -136,6 +147,23 @@ class VacationViewModel(private val vacationDao: VacationDao) : ViewModel() {
             imageName = imageName
         )
     }
+}
+fun getInvalidFields(
+    name: String,
+    hotelName: String,
+    location: String,
+    necessaryMoneyAmount: String,
+    description: String
+): List<String> {
+    val invalidFields = mutableListOf<String>()
+
+    if (name.isBlank()) invalidFields.add("name")
+    if (hotelName.isBlank()) invalidFields.add("hotelName")
+    if (location.isBlank()) invalidFields.add("location")
+    if (necessaryMoneyAmount.isBlank()) invalidFields.add("necessaryMoneyAmount")
+    if (description.isBlank()) invalidFields.add("description")
+
+    return invalidFields
 }
 
 

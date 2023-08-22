@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +11,6 @@ import com.example.desiredvacationsapp.*
 import com.example.desiredvacationsapp.ui.adapters.VacationAdapter
 import com.example.desiredvacationsapp.appDatabase.VacationDatabase
 import com.example.desiredvacationsapp.databinding.FragmentVacationListBinding
-import com.example.desiredvacationsapp.ui.notifications.NotificationSetupFragment
 import com.example.desiredvacationsapp.viewmodel.VacationViewModel
 import com.example.desiredvacationsapp.viewmodel.VacationViewModelFactory
 

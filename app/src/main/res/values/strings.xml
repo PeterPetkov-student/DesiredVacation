@@ -2,11 +2,11 @@
     <string name="app_name">Desired Vacations App</string>
     <string name="add_new_hotel">Add New Hotel</string>
     <string name="currency_symbol">$</string>
-    <string name="vacation_name_req">Vacation Name <font color='#FF0000'>*</font></string>
-    <string name="vacation_hotel_name_req">Hotel Name <font color='#FF0000'>*</font></string>
-    <string name="vacation_location_req">Location <font color='#FF0000'>*</font></string>
-    <string name="vacation_money_necessary_req">Money Necessary <font color='#FF0000'>*</font></string>
-    <string name="vacation_description_req">Description <font color='#FF0000'>*</font></string>
+    <string name="vacation_name_req">Vacation Name</string>
+    <string name="vacation_hotel_name_req">Hotel Name</string>
+    <string name="vacation_location_req">Location</string>
+    <string name="vacation_money_necessary_req">Money Necessary</string>
+    <string name="vacation_description_req">Description</string>
     <string name="save_action">Save</string>
     <string name="add_image">Add Image</string>
     <string name="edit_vacation">Edit Vacation</string>
@@ -25,4 +25,6 @@
     <string name="select_date">Select Date</string>
     <string name="select_time">Select Time</string>
     <string name="scheduled_notification">Scheduled Notification</string>
+    <string name="layout_empty">This field is empty</string>
+    <string name="character_number">0/20</string>
 </resources>

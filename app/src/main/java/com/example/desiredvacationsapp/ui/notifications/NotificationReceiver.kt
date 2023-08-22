@@ -15,7 +15,7 @@ class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
 
         // The ID for the notification, it can be used later to update or cancel the notification
-        val notificationId = 1
+        val notificationId = intent.getIntExtra("notification_id", 0)
 
         // Build the notification with its parameters:
         // The icon, the title, the text, and the priority.
