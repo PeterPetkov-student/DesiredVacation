@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="CustomEditText">
         <attr name="customHint" format="string"/>
+        <attr name="isLocationField" format="boolean"/>
         <attr name="customHintTextSize" format="dimension"/>
         <attr name="state_error" format="boolean" />
     </declare-styleable>

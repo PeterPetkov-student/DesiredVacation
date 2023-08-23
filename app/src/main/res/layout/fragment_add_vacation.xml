@@ -72,6 +72,7 @@
             android:id="@+id/vacation_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:isLocationField="true"
             app:customHint="@string/vacation_location_req"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

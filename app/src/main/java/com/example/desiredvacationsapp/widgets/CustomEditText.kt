@@ -29,7 +29,7 @@ class CustomEditText @JvmOverloads constructor(
     private val actionButton: ImageView
     private var isErrorState = false
     private var isTextChanged = false
-    private var isSaveClicked = false
+    private val locationIcon: ImageView
 
 
     init {
@@ -40,10 +40,13 @@ class CustomEditText @JvmOverloads constructor(
         editText.invalidateDrawable(editText.background)
         clearButton = view.findViewById(R.id.clearButton)
         actionButton = view.findViewById(R.id.actionButton)
+        locationIcon = view.findViewById(R.id.locationIcon)
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.CustomEditText)
+
         val customHint = attributes.getString(R.styleable.CustomEditText_customHint)
         attributes.recycle()
+
 
         if (!customHint.isNullOrEmpty()) {
             editText.hint = customHint
@@ -60,7 +63,7 @@ class CustomEditText @JvmOverloads constructor(
             } else {
                 if (editText.text.isEmpty()) {
                     editText.hint = floatingLabel.text
-                    hideFloatingLabel()  // Hide the floating label when the EditText is empty
+                    hideFloatingLabel()
                 } else {
                     setInvalidState(false)
                 }
@@ -75,7 +78,6 @@ class CustomEditText @JvmOverloads constructor(
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 isTextChanged = true
 
-                // If the user types something in the field, reset the error state
                 if (s?.isNotEmpty() == true || s?.isEmpty() == true) {
                     setInvalidState(false)
                 }
@@ -96,7 +98,6 @@ class CustomEditText @JvmOverloads constructor(
 
         actionButton.setOnClickListener {
             if (isErrorState) {
-                // Show the tooltip below the error icon when the error icon is clicked
                 showTooltip(it)
             } else {
                 editText.text.clear()
@@ -113,31 +114,31 @@ class CustomEditText @JvmOverloads constructor(
     private fun showFloatingLabel() {
         if (floatingLabel.visibility != VISIBLE) {
             floatingLabel.visibility = VISIBLE
-            animateLabelIn()  // add this line
+            animateLabelIn()
         }
     }
 
 
     private fun hideFloatingLabel() {
         if (floatingLabel.visibility != INVISIBLE) {
-            animateLabelOut()  // add this line
+            animateLabelOut()
             floatingLabel.visibility = INVISIBLE
         }
     }
     private fun animateLabelIn() {
         val fadeIn = ObjectAnimator.ofFloat(floatingLabel, "alpha", 0f, 1f)
-        fadeIn.duration = 200  // duration in milliseconds, adjust as needed
+        fadeIn.duration = 200
         fadeIn.start()
     }
 
     private fun animateLabelOut() {
         val fadeOut = ObjectAnimator.ofFloat(floatingLabel, "alpha", 1f, 0f)
-        fadeOut.duration = 200  // duration in milliseconds, adjust as needed
+        fadeOut.duration = 200
         fadeOut.start()
     }
 
     private fun setInvalidState(isInvalid: Boolean) {
-        isErrorState = isInvalid // set the error state based on the input
+        isErrorState = isInvalid
 
         if (isInvalid) {
             editText.isSelected = true
@@ -170,10 +171,8 @@ class CustomEditText @JvmOverloads constructor(
         popup.isOutsideTouchable = true
         popup.isFocusable = true
 
-        // This will display the tooltip right below the anchor (error icon)
+
         popup.showAsDropDown(anchor)
 
-        // If you want to apply offsets, you can use:
-        // popup.showAsDropDown(anchor, xOffset, yOffset)
     }
 }
