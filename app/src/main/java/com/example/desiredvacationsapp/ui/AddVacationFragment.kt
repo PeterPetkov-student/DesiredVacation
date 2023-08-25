@@ -55,6 +55,8 @@ class AddVacationFragment : Fragment() {
     private var _binding: FragmentAddVacationBinding? = null
     private val binding get() = _binding!!
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -77,6 +79,7 @@ class AddVacationFragment : Fragment() {
     // Set up UI interactions.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         view.findViewById<Button>(R.id.save_action).setOnClickListener {
             handleSaveAction()
@@ -154,11 +157,11 @@ class AddVacationFragment : Fragment() {
             val vacationId = arguments?.getInt(ARG_VACATION_ID) ?: -1
             viewModel.setSelectedImageName(selectedImage)
 
-            val vacationName = binding.vacationName.toString()
-            val hotelName = binding.hotelName.toString()
-            val location = binding.vacationLocation.toString()
-            val moneyNecessary = binding.moneyNecessary.toString()
-            val description = binding.vacationDescription.toString()
+            val vacationName = binding.vacationName.text.toString()
+            val hotelName = binding.hotelName.text.toString()
+            val location = binding.vacationLocation.text.toString()
+            val moneyNecessary = binding.moneyNecessary.text.toString()
+            val description = binding.vacationDescription.text.toString()
 
             if (vacationId > 0) {
                 viewModel.updateVacation(vacationId, vacationName, hotelName, location, moneyNecessary, description)

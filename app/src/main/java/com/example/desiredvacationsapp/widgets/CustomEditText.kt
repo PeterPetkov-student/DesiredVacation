@@ -15,6 +15,7 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import com.example.desiredvacationsapp.R
 import com.example.desiredvacationsapp.databinding.WidgetCustomEditTextBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
 class CustomEditText @JvmOverloads constructor(
@@ -29,7 +30,6 @@ class CustomEditText @JvmOverloads constructor(
     private val actionButton: ImageView
     private var isErrorState = false
     private var isTextChanged = false
-    private val locationIcon: ImageView
 
 
     init {
@@ -40,12 +40,12 @@ class CustomEditText @JvmOverloads constructor(
         editText.invalidateDrawable(editText.background)
         clearButton = view.findViewById(R.id.clearButton)
         actionButton = view.findViewById(R.id.actionButton)
-        locationIcon = view.findViewById(R.id.locationIcon)
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.CustomEditText)
 
         val customHint = attributes.getString(R.styleable.CustomEditText_customHint)
         attributes.recycle()
+
 
 
         if (!customHint.isNullOrEmpty()) {

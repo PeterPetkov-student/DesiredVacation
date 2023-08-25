@@ -27,7 +27,6 @@ abstract class VacationDatabase  : RoomDatabase() {
                     "vacation_database"
                 )
                     // Wipes and rebuilds instead of migrating if no Migration object.
-                    // Migration is not part of this code lab.
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
